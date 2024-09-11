@@ -5,20 +5,19 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"rupamkairi/emr/application/services"
 )
-
 
 type App struct {
 	router http.Handler
-
 }
 
 func New() *App {
 	app := &App{
-
+		router: services.InitRouter(),
 	}
 
-
+	services.InitDatabase()
 
 	return app
 }
