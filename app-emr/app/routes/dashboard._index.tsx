@@ -1,3 +1,3 @@
 export default function Component() {
-  return <div>Route</div>;
+  return <div>Dashboard Route</div>;
 }
