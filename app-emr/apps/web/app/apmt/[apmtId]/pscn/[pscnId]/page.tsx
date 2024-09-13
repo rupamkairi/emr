@@ -1,3 +1,3 @@
 export default function Page() {
-  return <div>App</div>;
+  return <div>pscn Id</div>;
 }

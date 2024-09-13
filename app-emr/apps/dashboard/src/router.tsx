@@ -4,21 +4,21 @@ import {
   AppointmentLayout,
   AppointmentsHome,
   AppointmentsLayout,
-  Home,
-  Layout,
   PrescriptionHome,
   PrescriptionLayout,
   PrescriptionsHome,
   PrescriptionsLayout,
 } from "./App";
 import { routes } from "./constants/routes";
+import DashboardLayout from "./layouts/Dashboard";
+import DashboardPage from "./pages/Dashboard";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <DashboardLayout />,
     children: [
-      { index: true, element: <Home /> },
+      { index: true, element: <DashboardPage /> },
       {
         path: routes.appointments.root,
         element: <AppointmentsLayout />,
