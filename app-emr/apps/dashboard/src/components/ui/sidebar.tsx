@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
-  BarChart,
+  Badge,
   ChevronDown,
   ChevronLeft,
+  ClipboardPlus,
   HelpCircle,
   Home,
   Settings,
@@ -53,17 +54,22 @@ const SidebarItemWithSubmenu: React.FC<SidebarItemWithSubmenuProps> = ({
         </Button>
       </div>
       {isOpen && (
-        <div className="pl-4 mt-2 space-y-1">
-          {submenuItems.map((item, key) => (
-            <a
-              key={key}
-              href={item.href}
-              className="block px-2 py-2 text-sm font-medium text-gray-300 rounded-md hover:bg-gray-700"
-            >
-              {item.icon}
-              {item.label}
-            </a>
-          ))}
+        <div className="pl-8">
+          <div className="bg-gray-50 rounded">
+            {submenuItems.map((item, key) => (
+              <Button
+                key={key}
+                variant={"ghost"}
+                asChild
+                className="flex justify-start"
+              >
+                <Link to={item.href}>
+                  {item.icon}
+                  {item.label}
+                </Link>
+              </Button>
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -101,10 +107,21 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             href=""
           />
           <SidebarItemWithSubmenu
-            icon={<BarChart className="mr-3 h-5 w-5" />}
+            icon={<ClipboardPlus className="mr-3 h-5 w-5" />}
             label="Appointments"
             href="/appointments"
-            submenuItems={[]}
+            submenuItems={[
+              {
+                label: "appointment",
+                href: "/appointments/1",
+                icon: <Badge className="mr-3 h-5 w-5" />,
+              },
+              {
+                label: "prescription",
+                href: "/appointments/1/prescriptions/1",
+                icon: <Badge className="mr-3 h-5 w-5" />,
+              },
+            ]}
           />
           {/* <SidebarItemWithSubmenu
             icon={<Users className="mr-3 h-5 w-5" />}

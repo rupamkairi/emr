@@ -1,10 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import {
-  AppointmentsHome,
-  AppointmentsLayout,
-  PrescriptionsHome,
-  PrescriptionsLayout,
-} from "./App";
 import { routes } from "./constants/routes";
 import AppointmentLayout from "./layouts/Appointment";
 import DashboardLayout from "./layouts/Dashboard";
@@ -12,6 +6,10 @@ import PrescriptionLayout from "./layouts/Prescription";
 import AppointmentPage from "./pages/Appointment";
 import DashboardPage from "./pages/Dashboard";
 import PrescriptionPage from "./pages/Prescription";
+import AppointmentsLayout from "./layouts/Appointments";
+import AppointmentsPage from "./pages/Appointments";
+import PrescriptionsLayout from "./layouts/Prescriptions";
+import PrescriptionsPage from "./pages/Prescriptions";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +21,7 @@ export const router = createBrowserRouter([
         path: routes.appointments.root,
         element: <AppointmentsLayout />,
         children: [
-          { index: true, element: <AppointmentsHome /> },
+          { index: true, element: <AppointmentsPage /> },
           {
             path: routes.byId,
             element: <AppointmentLayout />,
@@ -33,11 +31,17 @@ export const router = createBrowserRouter([
                 path: routes.appointments.prescriptions.root,
                 element: <PrescriptionsLayout />,
                 children: [
-                  { index: true, element: <PrescriptionsHome /> },
+                  { index: true, element: <PrescriptionsPage /> },
                   {
                     path: routes.byId,
                     element: <PrescriptionLayout />,
-                    children: [{ index: true, element: <PrescriptionPage /> }],
+                    children: [
+                      {
+                        index: true,
+                        element: <PrescriptionPage />,
+                        // errorElement: "💥",
+                      },
+                    ],
                   },
                 ],
               },

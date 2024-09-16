@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 
-export default function AppointmentsLayout() {
+export default function PrescriptionsLayout() {
   return (
     <div>
-      <p>Appointments Layout</p>
+      <h2>Prescriptions Layout</h2>
       <Outlet />
     </div>
   );
