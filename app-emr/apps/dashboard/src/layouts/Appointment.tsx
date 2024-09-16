@@ -1,18 +1,35 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function AppointmentLayout() {
+  const navigate = useNavigate();
+
   return (
-    <Tabs defaultValue="account" className="w-[400px]">
+    <Tabs defaultValue="appointment" className="w-[400px]">
       <TabsList>
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsTrigger
+          value="appointment"
+          onClick={() => {
+            navigate("");
+          }}
+        >
+          Appointment
+        </TabsTrigger>
+        <TabsTrigger
+          value="prescriptions"
+          onClick={() => {
+            navigate("prescriptions");
+          }}
+        >
+          Prescriptions
+        </TabsTrigger>
       </TabsList>
-      <TabsContent value="account">
-        Make changes to your account here.
+      <TabsContent value="appointment">
+        <Outlet />
       </TabsContent>
-      <TabsContent value="password">Change your password here.</TabsContent>
-      <Outlet />
+      <TabsContent value="prescriptions">
+        <Outlet />
+      </TabsContent>
     </Tabs>
   );
 }

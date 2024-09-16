@@ -74,7 +74,12 @@ export function PrescriptionsLayout() {
 export function PrescriptionsHome() {
   return (
     <div>
-      <h1>Prescriptions Home</h1>
+      <h1 className="text-xs">Prescriptions Home</h1>
+      <h1 className="text-sm">Prescriptions Home</h1>
+      <h1 className="text-base">Prescriptions Home</h1>
+      <h1 className="text-lg">Prescriptions Home</h1>
+      <h1 className="text-xl">Prescriptions Home</h1>
+      <h1 className="text-2xl">Prescriptions Home</h1>
       {appointments[1].prescriptions?.map((p, i) => (
         <p key={i}>
           {p?.medication}, {p?.dosage}, {p?.frequency}, {p?.notes}
