@@ -1,12 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import {
-  BubbleMenu,
-  EditorContent,
-  FloatingMenu,
-  useEditor,
-} from "@tiptap/react";
+import { BubbleMenu, EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
 const extensions = [StarterKit];

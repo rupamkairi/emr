@@ -9,6 +9,9 @@ export default {
       sans: ["Karla", ...defaultTheme.fontFamily.sans],
     },
     extend: {
+      screens: {
+        print: { raw: "print" },
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

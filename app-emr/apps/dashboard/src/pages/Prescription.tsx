@@ -1,11 +1,11 @@
 import PatientsConditions from "@/components/patients/PatientsConditions";
+import PatientsDiagnosis from "@/components/patients/PatientsDiagnosis";
 import PatientsSymptoms from "@/components/patients/PatientsSymptoms";
 import PatientsVitals from "@/components/patients/PatientsVitals";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -53,6 +53,9 @@ export default function PrescriptionPage() {
               </div>
               <div className="col-span-2">
                 <PatientsConditions />
+              </div>
+              <div className="col-span-2">
+                <PatientsDiagnosis />
               </div>
             </div>
           </CardContent>

@@ -59,4 +59,8 @@ export const lables = {
 
   conditionsNotes: "Condition's Notes",
   conditionsRemarks: "Condition's Remarks",
+
+  medications: "Medications",
+  searchMedicine: "Search Medicine",
+  diagnosisNotes: "Diagnosis's Notes",
 };

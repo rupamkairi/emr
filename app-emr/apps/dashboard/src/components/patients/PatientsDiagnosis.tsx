@@ -4,6 +4,7 @@ import {
   CardDescription,
   CardHeader,
 } from "@/components/ui/card";
+import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -13,54 +14,36 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { lables } from "@/constants/contents";
-import { useForm } from "react-hook-form";
 import RichEditor from "@/components/rich-editor/RichEditor";
+import { lables } from "@/constants/contents";
+import PatientsMedications from "./PatientsMedications";
 
-export default function PatientsConditions() {
+export default function PatientsDiagnosis() {
   const form = useForm();
 
   return (
     <Card>
       <CardHeader>
-        <CardDescription>Conditions</CardDescription>
+        <CardDescription>Diagnosis</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form className="grid grid-cols-1 gap-1">
+            <PatientsMedications />
+            <br />
             <FormField
               control={form.control}
-              name="conditions_notes"
+              name="diagnosis_notes"
               render={({ field }) => (
                 <FormItem>
                   <div>
-                    <FormLabel>{lables.conditionsNotes}</FormLabel>
+                    <FormLabel>{lables.diagnosisNotes}</FormLabel>
                     <FormDescription></FormDescription>
                   </div>
                   <div>
                     <FormControl>
                       <>
                         <RichEditor placeholder="Notes" {...field} />
-                      </>
-                    </FormControl>
-                    <FormMessage></FormMessage>
-                  </div>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="conditions_remarks"
-              render={({ field }) => (
-                <FormItem>
-                  <div>
-                    <FormLabel>{lables.conditionsRemarks}</FormLabel>
-                    <FormDescription></FormDescription>
-                  </div>
-                  <div>
-                    <FormControl>
-                      <>
-                        <RichEditor placeholder="Remarks" {...field} />
                       </>
                     </FormControl>
                     <FormMessage></FormMessage>
