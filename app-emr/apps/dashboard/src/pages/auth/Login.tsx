@@ -94,7 +94,6 @@ export default function LoginPage() {
                   className="w-full"
                   onClick={() => {
                     const data = form.getValues();
-                    console.log(data);
                     login.mutateAsync(data).then(() => {
                       console.log("logged in maybe");
                     });

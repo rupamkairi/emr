@@ -12,6 +12,8 @@ import PrescriptionsLayout from "./layouts/Prescriptions";
 import PrescriptionsPage from "./pages/Prescriptions";
 import AuthLayout from "./layouts/auth/Auth";
 import LoginPage from "./pages/auth/Login";
+import FacilitiesLayout from "./layouts/Facilities";
+import FacilitiesPage from "./pages/Facilities";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +26,11 @@ export const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       { index: true, element: <DashboardPage /> },
+      {
+        path: routes.facilities.root,
+        element: <FacilitiesLayout />,
+        children: [{ index: true, element: <FacilitiesPage /> }],
+      },
       {
         path: routes.appointments.root,
         element: <AppointmentsLayout />,

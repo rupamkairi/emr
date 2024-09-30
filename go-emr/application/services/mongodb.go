@@ -74,3 +74,11 @@ func DecodeDocument(result primitive.M) []byte {
 	log.Printf("%s\n", jsonData)
 	return jsonData
 }
+func DecodeDocuments(result []primitive.M) []byte {
+	jsonData, err := json.Marshal(result)
+	if err != nil {
+		panic(err)
+	}
+	log.Printf("%s\n", jsonData)
+	return jsonData
+}

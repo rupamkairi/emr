@@ -1,6 +1,7 @@
 export const lables = {
   email: "Email",
   password: "Password",
+  name: "Name",
 
   age: "Age",
   weight: "Weight",

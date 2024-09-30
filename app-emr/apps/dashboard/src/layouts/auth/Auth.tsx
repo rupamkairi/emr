@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import EmptyLayout from "../Empty";
 
 export async function authorizeMe() {
-  const user = await ky
+  const body = await ky
     .get(apis.authMe, {
       headers: {
         user_id: localStorage?.getItem("user_id") ?? "",
@@ -15,6 +15,8 @@ export async function authorizeMe() {
       credentials: "include",
     })
     .json();
+  if (!body) return null;
+  const user = body?.[0];
   return user;
 }
 

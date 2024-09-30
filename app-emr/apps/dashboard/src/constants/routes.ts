@@ -11,6 +11,10 @@ export const routes = {
     root: "/",
   },
 
+  facilities: {
+    root: "facilities",
+  },
+
   appointments: {
     root: "appointments",
 

@@ -7,6 +7,7 @@ import {
   ClipboardPlus,
   HelpCircle,
   Home,
+  Hospital,
   Settings,
 } from "lucide-react";
 import React, { useState } from "react";
@@ -105,6 +106,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             icon={<Home className="mr-3 h-5 w-5" />}
             label="Home"
             href=""
+          />
+          <SidebarItem
+            icon={<Hospital className="mr-3 h-5 w-5" />}
+            label="Facilities"
+            href="/facilities"
           />
           <SidebarItemWithSubmenu
             icon={<ClipboardPlus className="mr-3 h-5 w-5" />}

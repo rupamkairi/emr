@@ -27,7 +27,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// log.Printf("%s %s", lc.Email, lc.Password)
+	// log.Printf("%s	 %s", lc.Email, lc.Password)
 	if lc.Email == "" || lc.Password == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		return
@@ -62,15 +62,31 @@ func Me(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	var result bson.M
-	err = services.EMRDB.Collection("users").FindOne(context.TODO(), bson.D{
-		{"_id", userId},
-	}, options.FindOne().SetProjection(bson.D{
-		{"password", 0},
-	})).Decode(&result)
-	services.HandleMongodbQueryError(err)
-	body := services.DecodeDocument(result)
+	cursor, err := services.EMRDB.Collection("users").Aggregate(context.TODO(), bson.A{
+		bson.D{{"$match", bson.D{{"_id", userId}}}},
+		bson.D{
+			{"$lookup",
+				bson.D{
+					{"from", "facilities"},
+					{"localField", "_id"},
+					{"foreignField", "owners"},
+					{"as", "ownersOf"},
+				},
+			},
+		},
+		bson.D{{"$limit", 1}},
+		bson.D{{"$project", bson.D{{"password", 0}}}},
+	})
+	if err != nil {
+		panic(err)
+	}
 
+	var result []bson.M
+	if err = cursor.All(context.TODO(), &result); err != nil {
+		panic(err)
+	}
+
+	body := services.DecodeDocuments(result)
 	log.Println("Me Route")
 	w.WriteHeader(http.StatusOK)
 	w.Write(body)
