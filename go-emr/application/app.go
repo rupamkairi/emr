@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
 	"rupamkairi/emr/application/services"
 )
 
@@ -14,7 +15,7 @@ type App struct {
 
 func New() *App {
 	app := &App{
-		router: services.InitRouter(),
+		router: InitRouter(),
 	}
 
 	services.InitDatabase()

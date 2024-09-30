@@ -10,8 +10,15 @@ import AppointmentsLayout from "./layouts/Appointments";
 import AppointmentsPage from "./pages/Appointments";
 import PrescriptionsLayout from "./layouts/Prescriptions";
 import PrescriptionsPage from "./pages/Prescriptions";
+import AuthLayout from "./layouts/auth/Auth";
+import LoginPage from "./pages/auth/Login";
 
 export const router = createBrowserRouter([
+  {
+    path: routes.auth.root,
+    element: <AuthLayout />,
+    children: [{ path: routes.auth.login, element: <LoginPage /> }],
+  },
   {
     path: "/",
     element: <DashboardLayout />,
