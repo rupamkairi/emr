@@ -41,7 +41,10 @@ func InitRouter() *mux.Router {
 
 	router.HandleFunc("/auth/login", handlers.Login).Methods(http.MethodOptions, http.MethodPost)
 	router.HandleFunc("/auth/me", handlers.Me).Methods(http.MethodOptions, http.MethodGet)
+
+	router.HandleFunc("/facilities/{facilityId}/sub-facilities", handlers.GetSubFacilities).Methods(http.MethodOptions, http.MethodGet)
 	router.HandleFunc("/facilities/{facilityId}/sub-facilities", handlers.CreateSubFacility).Methods(http.MethodOptions, http.MethodPost)
+
 	router.HandleFunc("/users/{userId}", handlers.FindUser).Methods("GET")
 
 	return router

@@ -8,8 +8,32 @@ import (
 	"rupamkairi/emr/application/services"
 
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
+
+func GetSubFacilities(w http.ResponseWriter, r *http.Request) {
+	log.Println("GetSubFacilities Route")
+
+	vars := mux.Vars(r)
+	facilityId, err := primitive.ObjectIDFromHex(vars["facilityId"])
+	if err != nil {
+		panic(err)
+	}
+
+	cursor, err := services.EMRDB.Collection("facilities").Find(context.TODO(), bson.M{"parent_facility": facilityId})
+	if err != nil {
+		panic(err)
+	}
+	var result []bson.M
+	if err = cursor.All(context.TODO(), &result); err != nil {
+		panic(err)
+	}
+
+	body := services.DecodeDocuments(result)
+	w.WriteHeader(http.StatusOK)
+	w.Write(body)
+}
 
 type CreateSubFacilityBody struct {
 	Name            string               `json:name`
