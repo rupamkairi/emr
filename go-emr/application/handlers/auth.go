@@ -8,6 +8,7 @@ import (
 	"rupamkairi/emr/application/services"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -18,7 +19,6 @@ type LoginCredentials struct {
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
-
 	var lc LoginCredentials
 	err := json.NewDecoder(r.Body).Decode(&lc)
 	if err != nil {
@@ -52,6 +52,26 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	body := services.DecodeDocument(result)
 
 	log.Println("Login Route")
+	w.WriteHeader(http.StatusOK)
+	w.Write(body)
+}
+
+func Me(w http.ResponseWriter, r *http.Request) {
+	userId, err := primitive.ObjectIDFromHex(r.Header.Values("user_id")[0])
+	if err != nil {
+		panic(err)
+	}
+
+	var result bson.M
+	err = services.EMRDB.Collection("users").FindOne(context.TODO(), bson.D{
+		{"_id", userId},
+	}, options.FindOne().SetProjection(bson.D{
+		{"password", 0},
+	})).Decode(&result)
+	services.HandleMongodbQueryError(err)
+	body := services.DecodeDocument(result)
+
+	log.Println("Me Route")
 	w.WriteHeader(http.StatusOK)
 	w.Write(body)
 }

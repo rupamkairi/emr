@@ -6,6 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { useUserStore } from "@/stores/user";
 import { Bell, Menu, Search, User } from "lucide-react";
 import React from "react";
 
@@ -14,6 +15,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
+  const { user } = useUserStore();
+
   return (
     <header className="h-16 w-full mx-auto px-4 border-b z-10">
       <div className="h-full flex justify-between items-center">
@@ -46,6 +49,9 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              <div className="p-2">
+                <p>{user?.name}</p>
+              </div>
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Logout</DropdownMenuItem>

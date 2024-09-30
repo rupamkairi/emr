@@ -14,7 +14,7 @@ func InitRouter() *mux.Router {
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:5173"},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowedHeaders:   []string{"Content-Type", "Authorization", "X-Requested-With"},
+		AllowedHeaders:   []string{"Content-Type", "Authorization", "X-Requested-With", "user_id"},
 		ExposedHeaders:   []string{"Content-Length"},
 		AllowCredentials: true,
 		// Debug:            true,
@@ -27,7 +27,7 @@ func InitRouter() *mux.Router {
 			if r.Method == "OPTIONS" {
 				w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
 				w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-				w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
+				w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, user_id")
 				w.Header().Set("Access-Control-Allow-Credentials", "true")
 				w.WriteHeader(http.StatusOK)
 				return
@@ -40,6 +40,7 @@ func InitRouter() *mux.Router {
 	})
 
 	router.HandleFunc("/auth/login", handlers.Login).Methods(http.MethodPost, http.MethodOptions)
+	router.HandleFunc("/auth/me", handlers.Me).Methods(http.MethodGet, http.MethodOptions)
 	router.HandleFunc("/users/{userId}", handlers.FindUser).Methods("GET")
 
 	return router

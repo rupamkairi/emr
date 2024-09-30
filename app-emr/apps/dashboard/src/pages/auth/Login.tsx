@@ -10,22 +10,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { apis } from "@/constants/apis";
 import { lables } from "@/constants/contents";
 import { routes } from "@/constants/routes";
+import { useMutation } from "@tanstack/react-query";
+import ky from "ky";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import ky from "ky";
-import { useMutation } from "@tanstack/react-query";
 
 async function submitLogin(data: any) {
-  console.log({ data });
-  return await ky
-    .post("http://localhost:10000/auth/login", {
+  const user = await ky
+    .post(apis.authLogin, {
       json: data,
       credentials: "include",
     })
     .json();
+  localStorage.setItem("user_id", user._id);
+  return user;
 }
 
 export default function LoginPage() {
