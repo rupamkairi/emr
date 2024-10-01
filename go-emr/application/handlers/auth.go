@@ -64,16 +64,18 @@ func Me(w http.ResponseWriter, r *http.Request) {
 
 	cursor, err := services.EMRDB.Collection("users").Aggregate(context.TODO(), bson.A{
 		bson.D{{"$match", bson.D{{"_id", userId}}}},
-		bson.D{
-			{"$lookup",
-				bson.D{
-					{"from", "facilities"},
-					{"localField", "_id"},
-					{"foreignField", "owners"},
-					{"as", "ownersOf"},
-				},
-			},
-		},
+		bson.D{{"$lookup", bson.D{
+			{"from", "facilities"},
+			{"localField", "_id"},
+			{"foreignField", "owners"},
+			{"as", "ownersOf"},
+		}}},
+		bson.D{{"$lookup", bson.D{{
+			"from", "facilities"},
+			{"localField", "_id"},
+			{"foreignField", "people"},
+			{"as", "peopleOf"},
+		}}},
 		bson.D{{"$limit", 1}},
 		bson.D{{"$project", bson.D{{"password", 0}}}},
 	})

@@ -9,4 +9,8 @@ export const apis = {
     subFacilities: (facilityId: string) =>
       `${api}/facilities/${facilityId}/sub-facilities`,
   },
+
+  people: `${api}/people`,
+  doctors: `${api}/people/doctors`,
+  medicalStaffs: `${api}/people/medical-staffs`,
 };

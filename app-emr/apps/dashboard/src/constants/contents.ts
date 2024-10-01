@@ -1,7 +1,40 @@
 export const lables = {
   email: "Email",
+  phone: "Phone",
+  mobile: "Mobile",
   password: "Password",
   name: "Name",
+
+  facilities: "Facilities",
+  appointments: "Appointments",
+  subFacilities: "Sub-facilities",
+  subFacility: "Sub-facility",
+  addSubFacility: "Add sub-facility",
+  people: "People",
+  person: "Person",
+  addPerson: "Add person",
+  addDoctor: "Add doctor",
+  addMedicalStaff: "Add medical staff",
+  addStaff: "Add staff (non-medical)",
+
+  specialization: "Specialization",
+  qualification: "Qualification",
+  experience: "Experience",
+
+  contactInformation: "Contact information",
+  address: "Address",
+
+  licenseInformation: "License information",
+  licenseAuthority: "License authority",
+  licenseNumber: "License number",
+  licenseExpiry: "License expiry",
+  licenseImage: "License image",
+
+  fees: "Fees",
+  consultingFee: "Consulting fee",
+  reportingFee: "Reporting fee",
+
+  associatedFacility: "Associated facility",
 
   age: "Age",
   weight: "Weight",

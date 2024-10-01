@@ -35,7 +35,7 @@ async function createSubFacility({ facilityId, data }: any) {
 export default function FacilitiesPage() {
   const form = useForm({
     defaultValues: {
-      name: "Metropoliton Neuro",
+      name: "",
     },
   });
 
@@ -62,11 +62,11 @@ export default function FacilitiesPage() {
 
       <Card>
         <CardHeader>
-          <p className="font-bold">Create sub-facility</p>
+          <p className="font-bold">{lables.addSubFacility}</p>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form className="w-64">
+            <form>
               <FormField
                 name="name"
                 control={form.control}
@@ -92,7 +92,7 @@ export default function FacilitiesPage() {
                   });
                 }}
               >
-                Create
+                Submit
               </Button>
             </form>
           </Form>

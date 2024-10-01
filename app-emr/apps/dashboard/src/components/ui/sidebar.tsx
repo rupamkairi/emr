@@ -5,6 +5,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ClipboardPlus,
+  Contact,
   HelpCircle,
   Home,
   Hospital,
@@ -111,6 +112,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             icon={<Hospital className="mr-3 h-5 w-5" />}
             label="Facilities"
             href="/facilities"
+          />
+          <SidebarItem
+            icon={<Contact className="mr-3 h-5 w-5" />}
+            label="People"
+            href="/people"
           />
           <SidebarItemWithSubmenu
             icon={<ClipboardPlus className="mr-3 h-5 w-5" />}

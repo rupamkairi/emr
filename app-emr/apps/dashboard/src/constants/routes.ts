@@ -15,6 +15,10 @@ export const routes = {
     root: "facilities",
   },
 
+  people: {
+    root: "people",
+  },
+
   appointments: {
     root: "appointments",
 
