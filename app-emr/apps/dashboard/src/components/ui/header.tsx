@@ -6,7 +6,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { queryKeys } from "@/constants/query-states";
 import { useUserStore } from "@/stores/user";
+import { useQuery } from "@tanstack/react-query";
 import { Bell, Menu, Search, User } from "lucide-react";
 import React from "react";
 
@@ -16,6 +18,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   const { user } = useUserStore();
+  // const { data: me } = useQuery({ queryKey: [queryKeys.me] });
 
   return (
     <header className="h-16 w-full mx-auto px-4 border-b z-10">

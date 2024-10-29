@@ -1,17 +1,13 @@
+import FacilitySelect from "@/components/facilities/FacilitySelect";
 import AddDoctor from "@/components/people/AddDoctor";
 import AddMedicalStaff from "@/components/people/AddMedicalStaff";
+import PeopleTable from "@/components/people/PeopleTable";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { apis } from "@/constants/apis";
 import { lables } from "@/constants/contents";
 import { useUserStore } from "@/stores/user";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import type { People } from "@repo/typescript-config";
+import { useMutation } from "@tanstack/react-query";
 import ky from "ky";
 import { useEffect, useState } from "react";
 
@@ -24,7 +20,7 @@ export async function getPeople({ facility_id }: any) {
     })
     .json();
   console.log(body);
-  return body;
+  return body as People[];
 }
 
 export default function PeoplePage() {
@@ -35,8 +31,9 @@ export default function PeoplePage() {
 
   const { user } = useUserStore();
   const ownFacility = user?.ownersOf?.[0];
+
   const [filters, setFilters] = useState({
-    facility_id: ownFacility?.id ?? null,
+    facility_id: ownFacility?._id ?? null,
   });
 
   useEffect(() => {
@@ -51,31 +48,22 @@ export default function PeoplePage() {
         <CardHeader>{lables.people}</CardHeader>
         <CardContent>
           <div>
-            <Select
-              onValueChange={(value) => {
+            <FacilitySelect
+              facilities={user?.ownersOf ?? []}
+              onSelect={(value) => {
                 setFilters({ ...filters, facility_id: value });
               }}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {user?.ownersOf?.map((facility: any, k: number) => (
-                  <SelectItem key={k} value={facility?._id}>
-                    {facility?.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            />
           </div>
           <br />
           <div>
-            {people.data?.map((person: any, k: number) => (
+            <PeopleTable people={people.data ?? []} />
+            {/* {people.data?.map((person: any, k: number) => (
               <div key={k}>
                 <p>{person.name}</p>
                 <p>{person?.profile?.qualification}</p>
               </div>
-            ))}
+            ))} */}
           </div>
         </CardContent>
       </Card>

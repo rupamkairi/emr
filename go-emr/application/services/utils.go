@@ -1,12 +1,11 @@
 package services
 
 import (
+	"encoding/json"
 	"math/rand"
-	"time"
 )
 
 func RandomPassword() string {
-
 	const (
 		lowerChars     = "abcdefghijklmnopqrstuvwxyz"
 		upperChars     = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -16,12 +15,25 @@ func RandomPassword() string {
 		passwordLength = 12
 	)
 
-	rand.Seed(time.Now().UnixNano())
-
 	password := make([]byte, passwordLength)
 	for i := range password {
 		password[i] = allChars[rand.Intn(len(allChars))]
 	}
 	return string(password)
 
+}
+
+type Response struct {
+	Message string          `json:"message"`
+	Error   string          `json:"error"`
+	Data    json.RawMessage `json:"data"`
+}
+
+func FormatResponse(resp Response) ([]byte, error) {
+	jsonData, err := json.Marshal(resp)
+
+	if err != nil {
+		return nil, err
+	}
+	return jsonData, nil
 }

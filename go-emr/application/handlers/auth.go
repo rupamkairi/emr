@@ -88,7 +88,18 @@ func Me(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	body := services.DecodeDocuments(result)
+	data := services.DecodeDocument(result[0])
+
+	resp := services.Response{
+		Message: "Success",
+		Error:   "",
+		Data:    data,
+	}
+	body, err := services.FormatResponse(resp)
+	if err != nil {
+		panic(err)
+	}
+
 	log.Println("Me Route")
 	w.WriteHeader(http.StatusOK)
 	w.Write(body)

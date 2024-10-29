@@ -1,6 +1,15 @@
 import { create } from "zustand";
+import { Me } from "@repo/typescript-config";
 
-export const useUserStore = create((set) => ({
+type State = {
+  user: Me | null;
+};
+
+type Actions = {
+  setUser: (user: Me) => void;
+};
+
+export const useUserStore = create<State & Actions>((set) => ({
   user: null,
-  setUser: (_user: any) => set(() => ({ user: _user })),
+  setUser: (_user) => set(() => ({ user: _user })),
 }));

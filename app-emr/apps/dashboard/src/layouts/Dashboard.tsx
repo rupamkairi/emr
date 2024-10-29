@@ -1,10 +1,11 @@
 import Header from "@/components/ui/header";
 import Sidebar from "@/components/ui/sidebar";
-import { useMutation } from "@tanstack/react-query";
+import { useUserStore } from "@/stores/user";
+import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { authorizeMe } from "./auth/Auth";
-import { useUserStore } from "@/stores/user";
+import { queryKeys } from "@/constants/query-states";
 
 interface DashboardLayoutProps {
   children?: React.ReactNode;
@@ -12,20 +13,28 @@ interface DashboardLayoutProps {
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const me = useMutation({
-    mutationKey: ["me"],
-    mutationFn: authorizeMe,
+  // const me = useQuery({
+  //   // mutationKey: ["me"],
+  //   // mutationFn: authorizeMe,
+  //   queryKey: ["me"],
+  //   queryFn: authorizeMe,
+  // });
+  const { data: me } = useQuery({
+    queryKey: [queryKeys.me],
+    queryFn: async () => await authorizeMe(),
   });
 
   const { setUser } = useUserStore();
 
   useEffect(() => {
-    me.mutateAsync().then((user) => {
-      if (user) {
-        setUser(user);
-      }
-    });
-  }, []);
+    // me.mutateAsync().then((user) => {
+    //   if (user) {
+    //     setUser(user);
+    //   }
+    // });
+    if (!me) return;
+    setUser(me);
+  }, [me, setUser]);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -36,6 +45,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = () => {
 
         <main className="flex-1 overflow-y-auto bg-gray-100 p-4">
           <Outlet />
+          {/* <pre>{JSON.stringify(me, null, 2)}</pre> */}
         </main>
       </div>
     </div>
